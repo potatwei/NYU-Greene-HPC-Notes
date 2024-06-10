@@ -1,5 +1,5 @@
 # NYU-Greene-HPC-Notes
-This repository contains comprehensive notes, and examples for using Singularity on the NYU Greene High-Performance Computing (HPC) cluster.
+This repository contains comprehensive notes and examples for using Singularity on the NYU Greene High-Performance Computing (HPC) cluster.
 
 ## Request Compute Note
 Programs I want to use all require a GPU. To request a compute node with one GPU
@@ -31,7 +31,7 @@ squeue -u $NetID
 ```
 
 ## Cancel Your Jobs
-After you get your job id through listing all jobs, you can kill a job using
+After you get your job id by listing all jobs, you can kill a job using
 ```bash
 scancel $JobID
 ```
@@ -42,7 +42,7 @@ exit
 More details about SLURM in this official [documentation](https://crc-docs.abudhabi.nyu.edu/hpc/jobs/hpc_slurm.html#)
 
 ## Singularity using Overlay
-NYU HPC has a detailed documentation about this [here](https://sites.google.com/nyu.edu/nyu-hpc/hpc-systems/greene/software/singularity-with-miniconda?authuser=0), but you can still follow steps below.\
+NYU HPC has detailed documentation about this [here](https://sites.google.com/nyu.edu/nyu-hpc/hpc-systems/greene/software/singularity-with-miniconda?authuser=0), but you can still follow steps below.\
 Instead of building an image on your own, you should use one provided here
 ```bash
 ls /scratch/work/public/singularity
@@ -68,7 +68,7 @@ Copy it and unzip
 cp -rp /scratch/work/public/overlay-fs-ext3/overlay-15GB-500K.ext3.gz .
 gunzip overlay-15GB-500K.ext3.gz
 ```
-Finally you can launch the container in read/write mode (with the :rw flag)
+Finally, you can launch the container in read/write mode (with the :rw flag)
 ```bash
 singularity exec --overlay overlay-15GB-500K.ext3:rw scratch/work/public/singularity/cuda11.6.124-cudnn8.4.0.27-devel-ubuntu20.04.4.sif /bin/bash
 ```
@@ -78,7 +78,7 @@ wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
 bash Miniconda3-latest-Linux-x86_64.sh -b -p /ext3/miniconda3
 rm Miniconda3-latest-Linux-x86_64.sh
 ```
-But what if your program generates file? How should you access it and transfer it outside the container? In this case, we can use `--bind`
+But what if your program generates a file? How should you access it and transfer it outside the container? In this case, we can use `--bind`
 
 ## Files in a Container
 The container’s filesystem is isolated from the host filesystem. To access files on the physical filesystem from within the container, you need to mount the directory of the host filesystem.\
@@ -90,4 +90,10 @@ or
 ```bash
 singularity exec --overlay overlay-15GB-500K.ext3:rw --bind .:/mnt scratch/work/public/singularity/cuda11.6.124-cudnn8.4.0.27-devel-ubuntu20.04.4.sif /bin/bash
 ```
-Here I'm binding my current work directory `.` with `/mnt` in the containter. If you go to `/mnt` inside the container, it's just your current work directory.
+Here I'm binding my current work directory `.` with `/mnt` in the container. If you go to `/mnt` inside the container, it's just your current work directory.
+
+## Using GPU in a Container
+When you need to use GPU in a container, add `--nv` when you launch the image. For example
+```bash
+singularity exec --nv --overlay overlay-15GB-500K.ext3:rw --bind .:/mnt scratch/work/public/singularity/cuda11.6.124-cudnn8.4.0.27-devel-ubuntu20.04.4.sif /bin/bash
+```
