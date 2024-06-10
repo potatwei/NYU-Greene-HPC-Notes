@@ -2,12 +2,57 @@
 This repository contains comprehensive notes and examples for using Singularity on the NYU Greene High-Performance Computing (HPC) cluster.
 
 # Table of Contents <!-- omit from toc -->
+- [Useful Commands](#useful-commands)
 - [Request Compute Note](#request-compute-note)
 - [List Your Jobs](#list-your-jobs)
 - [Cancel Your Jobs](#cancel-your-jobs)
 - [Singularity using Overlay](#singularity-using-overlay)
 - [Files in a Container](#files-in-a-container)
 - [Using GPU in a Container](#using-gpu-in-a-container)
+
+## Useful Commands
+Check current usage and quota ⬇️
+```bash
+myquota
+```
+```bash
+Filesystem   Environment   Backed up?   Allocation       Current Usage
+Space        Variable      /Flushed?    Space / Files    Space(%) / Files(%)
+
+/home        $HOME         Yes/No       50.0GB/30.0K       0.19GB(0.39%)/1684(5.61%)
+/scratch     $SCRATCH      No/Yes        5.0TB/1.0M       44.54GB(0.87%)/98718(9.87%)
+/archive     $ARCHIVE      Yes/No        2.0TB/20.0K       0.00GB(0.00%)/2(0.01%)
+/vast        $VAST         NO/YES        2TB/5.0M           0.0TB(0.0%)/2(0%)
+```
+Show status of the GPU ⬇️
+```bash
+nvidia-smi
+```
+```bash
++---------------------------------------------------------------------------------------+
+| NVIDIA-SMI 535.154.05             Driver Version: 535.154.05   CUDA Version: 12.2     |
+|-----------------------------------------+----------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |         Memory-Usage | GPU-Util  Compute M. |
+|                                         |                      |               MIG M. |
+|=========================================+======================+======================|
+|   0  NVIDIA A100-SXM4-80GB          On  | 00000000:E3:00.0 Off |                    0 |
+| N/A   37C    P0             214W / 500W |   6568MiB / 81920MiB |     99%      Default |
+|                                         |                      |             Disabled |
++-----------------------------------------+----------------------+----------------------+
+                                                                                         
++---------------------------------------------------------------------------------------+
+| Processes:                                                                            |
+|  GPU   GI   CI        PID   Type   Process name                            GPU Memory |
+|        ID   ID                                                             Usage      |
+|=======================================================================================|
+|    0   N/A  N/A   3009270      C   python                                     6558MiB |
++---------------------------------------------------------------------------------------+
+```
+Running program in background ⬇️
+```bash
+nohup $Command &
+```
 
 ## Request Compute Note
 Programs I want to use all require a GPU. To request a compute node with one GPU
