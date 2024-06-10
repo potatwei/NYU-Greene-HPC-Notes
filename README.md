@@ -1,5 +1,13 @@
-# NYU-Greene-HPC-Notes
+# NYU-Greene-HPC-Notes <!-- omit from toc -->
 This repository contains comprehensive notes and examples for using Singularity on the NYU Greene High-Performance Computing (HPC) cluster.
+
+# Table of Contents <!-- omit from toc -->
+- [Request Compute Note](#request-compute-note)
+- [List Your Jobs](#list-your-jobs)
+- [Cancel Your Jobs](#cancel-your-jobs)
+- [Singularity using Overlay](#singularity-using-overlay)
+- [Files in a Container](#files-in-a-container)
+- [Using GPU in a Container](#using-gpu-in-a-container)
 
 ## Request Compute Note
 Programs I want to use all require a GPU. To request a compute node with one GPU
