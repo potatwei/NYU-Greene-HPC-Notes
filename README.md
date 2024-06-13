@@ -123,7 +123,7 @@ gunzip overlay-15GB-500K.ext3.gz
 ```
 Finally, you can launch the container in read/write mode (with the :rw flag)
 ```bash
-singularity exec --overlay overlay-15GB-500K.ext3:rw scratch/work/public/singularity/cuda11.6.124-cudnn8.4.0.27-devel-ubuntu20.04.4.sif /bin/bash
+singularity exec --overlay overlay-15GB-500K.ext3:rw /scratch/work/public/singularity/cuda11.6.124-cudnn8.4.0.27-devel-ubuntu20.04.4.sif /bin/bash
 ```
 Now you can do what you want inside. Maybe install conda
 ```bash
@@ -137,16 +137,16 @@ But what if your program generates a file? How should you access it and transfer
 The container’s filesystem is isolated from the host filesystem. To access files on the physical filesystem from within the container, you need to mount the directory of the host filesystem.\
 Simply add `--bind <Host Dir>:<Container Dir>`. Then the command becomes
 ```bash
-singularity exec --bind .:/mnt scratch/work/public/singularity/cuda11.6.124-cudnn8.4.0.27-devel-ubuntu20.04.4.sif /bin/bash
+singularity exec --bind .:/mnt /scratch/work/public/singularity/cuda11.6.124-cudnn8.4.0.27-devel-ubuntu20.04.4.sif /bin/bash
 ```
 or
 ```bash
-singularity exec --overlay overlay-15GB-500K.ext3:rw --bind .:/mnt scratch/work/public/singularity/cuda11.6.124-cudnn8.4.0.27-devel-ubuntu20.04.4.sif /bin/bash
+singularity exec --overlay overlay-15GB-500K.ext3:rw --bind .:/mnt /scratch/work/public/singularity/cuda11.6.124-cudnn8.4.0.27-devel-ubuntu20.04.4.sif /bin/bash
 ```
 Here I'm binding my current work directory `.` with `/mnt` in the container. If you go to `/mnt` inside the container, it's just your current work directory.
 
 ## Using GPU in a Container
 When you need to use GPU in a container, add `--nv` when you launch the image. For example
 ```bash
-singularity exec --nv --overlay overlay-15GB-500K.ext3:rw --bind .:/mnt scratch/work/public/singularity/cuda11.6.124-cudnn8.4.0.27-devel-ubuntu20.04.4.sif /bin/bash
+singularity exec --nv --overlay overlay-15GB-500K.ext3:rw --bind .:/mnt /scratch/work/public/singularity/cuda11.6.124-cudnn8.4.0.27-devel-ubuntu20.04.4.sif /bin/bash
 ```
