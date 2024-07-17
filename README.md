@@ -74,7 +74,7 @@ srun --cpus-per-task=4 --time=4:00:00 --mem=8000 --gres=gpu:rtx8000:1 --pty /bin
 More details in this official [documentation](https://sites.google.com/nyu.edu/nyu-hpc/training-support/tutorials/slurm-tutorial?authuser=0).
 
 ## List Your Jobs
-To list all your jobs since June 10, 2024, you can use
+To list all your jobs since June 10, 2024, you can use🤔
 ```bash
 sacct --starttime=2024-06-10
 ```
